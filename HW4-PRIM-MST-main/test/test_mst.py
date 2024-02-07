@@ -91,10 +91,10 @@ class Graph:
 
 import pytest
 import numpy as np
-from mst import Graph
+#from mst import Graph
 from sklearn.metrics import pairwise_distances
 
-
+@pytest.fixture
 def check_mst(adj_mat: np.ndarray, 
               mst: np.ndarray, 
               expected_weight: int, 
@@ -156,6 +156,7 @@ def test_mst_single_cell_data():
     check_mst(g.adj_mat, g.mst, 57.263561605571695)
 
 
+@pytest.fixture
 def test_mst_student(adj_mat: np.ndarray, 
               mst: np.ndarray, 
               allowed_error: float = 0.0001):
@@ -185,11 +186,11 @@ def use_student_test():
 
 
 
-test_mst_small()
+#test_mst_small()
 
-test_mst_single_cell_data()
+#test_mst_single_cell_data()
 
-use_student_test()
+#use_student_test()
 
 
 
