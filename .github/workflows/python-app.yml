@@ -22,7 +22,7 @@ jobs:
     - uses: HW4-PRIM-MST-main/mst@master
       name: mst
     - name: Set up Python 3.7
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v1
       with:
         python-version: "3.7"
     - name: Install dependencies
