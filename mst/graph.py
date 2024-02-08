@@ -1,6 +1,6 @@
 import numpy as np
-import heapq
 from typing import Union
+import pytest
 
 class Graph:
 
@@ -17,15 +17,53 @@ class Graph:
             self.adj_mat = self._load_adjacency_matrix_from_csv(adjacency_mat)
         elif type(adjacency_mat) == np.ndarray:
             self.adj_mat = adjacency_mat
+   
+        
         else: 
             raise TypeError('Input must be a valid path or an adjacency matrix')
-        self.mst = None
+        self.mst = []
 
     def _load_adjacency_matrix_from_csv(self, path: str) -> np.ndarray:
         with open(path) as f:
             return np.loadtxt(f, delimiter=',')
+    
+   # def _load_adjacency_matrix_from_csv(self, path: str) -> np.ndarray:
+    #    with open(path) as f:
+     #       lines = f.readlines()
+
+    # Assuming the matrix is rectangular and each line contains two space-separated values
+      #  matrix = np.array([list(map(float, line.split())) for line in lines])
+
+       # if not matrix.shape[1] == 2:
+        #    raise ValueError("Each line in the file should contain two space-separated values.")
+
+       # return matrix
+
 
     def construct_mst(self):
+        INF = 9999999
+        V = len(self.adj_mat)
+        selected = [False] * V
+        no_edge = 0
+        selected[0] = True
+
+        while no_edge < V - 1:
+            minimum = INF
+            x = 0
+            y = 0
+            for i in range(V):
+                if selected[i]:
+                    for j in range(V):
+                        if ((not selected[j]) and self.adj_mat[i][j]):  
+                            # not in selected and there is an edge
+                            if minimum > self.adj_mat[i][j]:
+                                minimum = self.adj_mat[i][j]
+                                x = i
+                                y = j
+            print(str(x) + "-" + str(y) + ":" + str(self.adj_mat[x][y]))
+            self.mst+=[self.adj_mat[x][y]]
+            selected[y] = True
+            no_edge += 1
         """
     
         TODO: Given `self.adj_mat`, the adjacency matrix of a connected undirected graph, implement Prim's 
@@ -41,4 +79,10 @@ class Graph:
         `heapify`, `heappop`, and `heappush` functions.
 
         """
-        self.mst = None
+        
+
+
+#graph_instance=Graph("../data/small.csv")
+#Graph.construct_mst(graph_instance)
+
+
