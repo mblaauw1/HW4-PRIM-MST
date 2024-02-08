@@ -19,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - uses: ./HW4-PRIM-MST-main/mst
+      name: mst
     - name: Set up Python 3.7
       uses: actions/setup-python@v4
       with:
